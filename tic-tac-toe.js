@@ -1,26 +1,32 @@
+
 window.addEventListener('DOMContentLoaded', () => {
+    
+    let currentPlayer = 'X';
     const squares = document.querySelectorAll('#board div');
     const status = document.getElementById('status');
     const newGameButton = document.querySelector('.btn');
-    let current = 'X';
 
     squares.forEach(square => {
         square.classList.add('square');
         square.addEventListener('click', () => {
             if (square.textContent === '' && !status.classList.contains('you-won')) {
-                square.textContent = current;
-                square.classList.add(current);
+                square.textContent = currentPlayer;
+                square.classList.add(currentPlayer);
+                
                 if (checkWin()) {
-                    status.textContent = `Congratulations! ${current} is the Winner!`;
+                    status.textContent = `Congratulations! ${currentPlayer} is the Winner!`;
                     status.classList.add('you-won');
                 } else {
-                    current = current === 'X' ? 'O' : 'X';
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
                 }
             }
         });
+
         square.addEventListener('mouseover', () => {
-            if (square.textContent === '') square.classList.add('hover');
+            if (square.textContent === '')
+                square.classList.add('hover');
         });
+
         square.addEventListener('mouseout', () => {
             square.classList.remove('hover');
         });
@@ -31,9 +37,10 @@ window.addEventListener('DOMContentLoaded', () => {
             square.textContent = '';
             square.className = 'square';
         });
+
         status.textContent = 'Move your mouse over a square and click to play an X or an O.';
         status.className = '';
-        current = 'X';
+        currentPlayer = 'X';
     });
 
     function checkWin() {
@@ -49,6 +56,3 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-
-
